@@ -1,0 +1,31 @@
+.btn_mode:hover .switch {
+    background-color: #374151;
+}
+
+.circle {
+    background: white;
+    border-radius: 50%;
+    height: 1.5rem;
+    aspect-ratio: 1/1;
+    /* transition: 0.3s; */
+    position: absolute;
+}
+
+.circle.darkMode {
+    background: linear-gradient(40deg, #FF4500, #FF8C00, #FFD700);
+}
+
+.switch {
+    position: relative;
+    background-color: #1F2937;
+    left: 4px;
+    top: -4px;
+    border-radius: 50%;
+    height: 1.2rem;
+    z-index: 100;
+    aspect-ratio: 1/1;
+}
+
+.switch.darkMode {
+    transform: scale(0) translate(10px, -10px);
+}
