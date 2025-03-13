@@ -51,7 +51,7 @@ const projects = [
   },
 ];
 
-export default function Project() {
+export default function Project({ pageLoaded }) {
     const { darkMode } = useUI()
     const [openTabs, setOpenTabs] = useState([]);
     const [activeTab, setActiveTab] = useState(null);
@@ -92,7 +92,7 @@ export default function Project() {
     }
   }
 
-  return (
+  return pageLoaded ? (
     <div className="project_page_container text-white h-full">
       {/* Code Editor Container */}
       <div className={`flex border shadow-lg overflow-hidden h-full ${darkMode ? "bg-gray-900 border-gray-700" : "bg-white border-gray-300"}`}>
@@ -220,5 +220,7 @@ export default function Project() {
         </div>
       </div>
     </div>
-  );
+  ) : (
+    <></>
+  )
 }
