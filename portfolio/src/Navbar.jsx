@@ -9,14 +9,14 @@ export default function Navbar() {
         <div className={`w-[100%] flex items-center justify-between shadow-md border-b px-1 border-gray-700 h-15 ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
         <Link to={`/`} className="text-2xl font-bold text-orange-400 w-25 ml-2">Myse.lf</Link>
         
-        <div className="relative w-1/3">
+        {/* <div className="relative w-1/3">
             <input
             type="text"
             placeholder="Search editor"
             className={`w-full rounded-md border focus:outline-none h-10 ${darkMode ? 'bg-gray-900 border-gray-600 hover:bg-gray-800 focus:border-gray-200 text-white' : 'bg-white border-gray-900 hover:bg-gray-200 text-gray-800'}`}
             style={{padding: '0 10px'}}
             />
-        </div>
+        </div> */}
         
         <div className="flex items-center gap-3 pr-3">
             {/* <button className="h-10 mr-10" style={{backgroundColor: 'red'}}>
