@@ -20,7 +20,8 @@ const projects = [
       "AI logic adapts moves based on game state.",
       "Clean and responsive user interface.",
     ],
-    status: "completed"
+    status: "completed",
+    video: "uJYox4wqr9Y",
   },
   {
     name: "Spotify Clone",
@@ -39,7 +40,8 @@ const projects = [
       "Artist and album browsing",
       "Personalized recommendations",
     ],
-    status: "completed"
+    status: "completed",
+    video: "7i3m6nPbJ7c",
   },
   {
     name: "Crop Finance Pro",
@@ -59,7 +61,8 @@ const projects = [
       "Email notifications on loan status",
     ],
     collaborative: true,
-    status: "completed"
+    status: "completed",
+    video: "ACmA0cTqpiQ",
   }
 ];
 
@@ -115,6 +118,13 @@ export default function Project({ pageLoaded }) {
     }
     setExecuting(false);
   };
+
+  const extractYouTubeID = (url) => {
+    const regex = /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^\s&]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : url; // fallback: if url is just the ID
+  }
+
 
   const handleVideoExecution = () => {
     setExecuting(!executing);
@@ -175,7 +185,8 @@ export default function Project({ pageLoaded }) {
                 Welcome - Select a project
               </span>
             ) : (
-              openTabs.map((tab) => (                <motion.div
+              openTabs.map((tab) => (   
+              <motion.div
                   key={tab.name}
                   onClick={() => {
                     setActiveTab(tab);
@@ -363,14 +374,15 @@ export default function Project({ pageLoaded }) {
                       transition={{ duration: 0.5 }}
                       className="w-full"
                     >
-                      <video 
-                        controls 
-                        className="w-full rounded-md shadow-lg border-2 border-gray-600"
-                        autoPlay
-                      >
-                        <source src={activeTab.video} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
+                      <div className="w-full rounded-md shadow-lg border-2 border-gray-600 overflow-hidden">
+                        <iframe
+                          className="w-full aspect-video"
+                          src={`https://www.youtube.com/embed/${extractYouTubeID(activeTab.video)}`}
+                          title="YouTube video"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
                     </motion.div>
                   ) : (
                     <motion.div
