@@ -29,7 +29,7 @@ export default function Home({ pageLoaded }) {
     }, []);
 
     const handleDownload = () => {
-        fetch("/resume.pdf") // Adjust URL if hosted externally
+        fetch("/my_resume.pdf") // Adjust URL if hosted externally
             .then(response => response.blob())
             .then(blob => {
                 const link = document.createElement("a");
