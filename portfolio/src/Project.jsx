@@ -94,6 +94,8 @@ export default function Project({ pageLoaded }) {
   const [videoBtnIcon, setVideoBtnIcon] = useState("fas fa-play-circle text-lg");
   const [copySuccess, setCopySuccess] = useState("");
   const [copyTimeout, setCopyTimeout] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarIcon, setSidebarIcon] = useState("fa-solid fa-bars text-2xl");
   const openProject = (project) => {
     if (!openTabs.some((tab) => tab.name === project.name)) {
       setOpenTabs([...openTabs, project]);
@@ -115,6 +117,11 @@ export default function Project({ pageLoaded }) {
     }
     setExecuting(false);
   };
+
+  const handleProjectNavbar = () => {
+    setSidebarOpen(!sidebarOpen);
+    setSidebarIcon(sidebarOpen ? "fa-solid fa-bars text-2xl" : "fa-solid fa-xmark text-2xl");
+  }
 
   const extractYouTubeID = (url) => {
     const regex = /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^\s&]+)/;
@@ -549,84 +556,115 @@ export default function Project({ pageLoaded }) {
               `}
           >
             <h2
-              className={`uppercase mb-2 text-lg flex items-center justify-center ${
+              className={`uppercase mb-2 text-lg flex items-center justify-between ${
                 darkMode ? "text-gray-400" : "text-gray-700"
               }`}
             >
-              <i className="fas fa-folder-open mr-2"></i> Projects
+              <span className="flex justify-center items-center">
+                <i className="fas fa-folder-open mr-2"></i> Projects
+              </span>
+              <span className="flex justify-center items-center cursor-pointer p-2" onClick={handleProjectNavbar}>
+                <i class={sidebarIcon}></i>
+              </span>
             </h2>
-            
-            {/* Completed Projects */}
-            <div className="mb-3">
-              <h3 className={`text-xs font-semibold mb-2 text-center ${
-                darkMode ? "text-green-400" : "text-green-600"
-              }`}>
-                <i className="fas fa-check-circle mr-1"></i>
-                Completed
-              </h3>
-              <div className="flex flex-wrap gap-2 justify-center overflow-x-auto">
-                {projects.map((project, index) => (
-                  <motion.div
-                    key={index}
-                    onClick={() => openProject(project)}
-                    className={`flex items-center space-x-1 p-1.5 rounded-md cursor-pointer transition-all 
-                      max-w-[30%] flex-grow
-                      ${
-                      activeTab?.name === project.name
-                        ? darkMode
-                          ? "bg-gray-700 text-yellow-400 shadow-md"
-                          : "bg-gray-300 text-blue-600 shadow-md"
-                        : darkMode
-                        ? "text-gray-300 hover:bg-gray-700"
-                        : "text-gray-800 hover:bg-gray-300"
-                    }`}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <i className={`${project.codeIcon} ${project.iconColor}`}></i>
-                    <span className="text-xs truncate">{project.name}</span>
-                    {project.collaborative && (
-                      <i className="fas fa-users ml-1 text-xs text-blue-400" title="Collaborative Project"></i>
-                    )}
-                  </motion.div>
-                ))}
+              {/* Projects Navigation Content */}            
+              <motion.div 
+              initial={false}
+              animate={{ 
+                height: sidebarOpen ? "auto" : 0,
+                opacity: sidebarOpen ? 1 : 0
+              }}
+              style={{
+                pointerEvents: sidebarOpen ? "auto" : "none"
+              }}
+              transition={{
+                height: { duration: 0.15, ease: [0.6, 0, 0.2, 1] },
+                opacity: { duration: 0.15, ease: [0.6, 0, 0.2, 1] }
+              }}
+              className="overflow-hidden"
+            >
+              {/* Completed Projects */}
+              <div className="mb-4">
+                <h3 className={`text-xs font-semibold mb-3 text-center ${
+                  darkMode ? "text-green-400" : "text-green-600"
+                }`}>
+                  <i className="fas fa-check-circle mr-1"></i>
+                  Completed
+                </h3>
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {projects.map((project, index) => (
+                    <motion.div
+                      key={index}
+                      onClick={() => openProject(project)}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 20 }}
+                      transition={{ duration: 0.2, delay: index * 0.05 }}
+                      className={`flex items-center space-x-1 p-2 rounded-md cursor-pointer transition-all 
+                        w-[45%] max-w-[180px] overflow-hidden
+                        ${
+                        activeTab?.name === project.name
+                          ? darkMode
+                            ? "bg-gray-700 text-yellow-400 shadow-md"
+                            : "bg-gray-300 text-blue-600 shadow-md"
+                          : darkMode
+                          ? "text-gray-300 hover:bg-gray-700"
+                          : "text-gray-800 hover:bg-gray-300"
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <i className={`${project.codeIcon} ${project.iconColor} text-sm`}></i>
+                      <span className="text-xs truncate flex-1">{project.file}</span>
+                      {project.collaborative && (
+                        <i className="fas fa-users text-xs text-blue-400" title="Collaborative Project"></i>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Upcoming Projects */}
-            <div>
-              <h3 className={`text-xs font-semibold mb-2 text-center ${
-                darkMode ? "text-amber-400" : "text-amber-600"
-              }`}>
-                <i className="fas fa-clock mr-1"></i>
-                Upcoming
-              </h3>
-              <div className="flex flex-wrap gap-2 justify-center overflow-x-auto pb-safe">
-                {upcomingProjects.map((project, index) => (
-                  <motion.div
-                    key={index}
-                    onClick={() => openProject(project)}
-                    className={`flex items-center space-x-1 p-1.5 rounded-md cursor-pointer transition-all 
-                      max-w-[45%] flex-grow
-                      ${
-                      activeTab?.name === project.name
-                        ? darkMode
-                          ? "bg-gray-700 text-yellow-400 shadow-md"
-                          : "bg-gray-300 text-blue-600 shadow-md"
-                        : darkMode
-                        ? "text-gray-300 hover:bg-gray-700"
-                        : "text-gray-800 hover:bg-gray-300"
-                    }`}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <i className={`${project.codeIcon} ${project.iconColor}`}></i>
-                    <span className="text-xs truncate">{project.name}</span>
-                    {project.collaborative && (
-                      <i className="fas fa-users ml-1 text-xs text-blue-400" title="Collaborative Project"></i>
-                    )}
-                  </motion.div>
-                ))}
+              {/* Upcoming Projects */}
+              <div>
+                <h3 className={`text-xs font-semibold mb-3 text-center ${
+                  darkMode ? "text-amber-400" : "text-amber-600"
+                }`}>
+                  <i className="fas fa-clock mr-1"></i>
+                  Upcoming
+                </h3>
+                <div className="flex flex-wrap gap-2 justify-center pb-4">
+                  {upcomingProjects.map((project, index) => (
+                    <motion.div
+                      key={index}
+                      onClick={() => openProject(project)}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 20 }}
+                      transition={{ duration: 0.2, delay: index * 0.05 }}
+                      className={`flex items-center space-x-1 p-2 rounded-md cursor-pointer transition-all 
+                        w-[45%] max-w-[180px] overflow-hidden
+                        ${
+                        activeTab?.name === project.name
+                          ? darkMode
+                            ? "bg-gray-700 text-yellow-400 shadow-md"
+                            : "bg-gray-300 text-blue-600 shadow-md"
+                          : darkMode
+                          ? "text-gray-300 hover:bg-gray-700"
+                          : "text-gray-800 hover:bg-gray-300"
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <i className={`${project.codeIcon} ${project.iconColor} text-sm`}></i>
+                      <span className="text-xs truncate flex-1">{project.file}</span>
+                      {project.collaborative && (
+                        <i className="fas fa-users text-xs text-blue-400" title="Collaborative Project"></i>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </motion.div>
           </div>
       </div>
     </div>
