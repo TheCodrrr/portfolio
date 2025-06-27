@@ -53,23 +53,21 @@ export default function Home({ pageLoaded }) {
         <div className={`home_page_container flex flex-col items-center justify-center text-white px-3 sm:px-6 py-8 sm:py-10 h-[100%] ${darkMode ? "bg-gray-900" : "bg-slate-100"}`}>
             {/* Top Section */}
             <div className="flex w-full max-w-7xl gap-4 sm:gap-6 md:gap-8 flex-col md:flex-row items-center justify-center">
-                {/* Left: Profile Section */}
-                <motion.div 
-                    className="flex flex-col items-center md:items-start text-center md:text-left w-full md:w-1/3 space-y-5 sm:space-y-6 pl-0 sm:pl-1 pt-3 pb-2"
+                {/* Left: Profile Section */}                <motion.div 
+                    className="flex flex-col items-center md:items-start text-center md:text-left w-full md:w-1/3 space-y-4 sm:space-y-5 pl-0 sm:pl-1 pt-2 pb-2"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                >
-                    <motion.div
+                >                    <motion.div
                         className={`relative rounded-full overflow-hidden border-4 shadow-xl ${darkMode ? "border-blue-600" : "border-blue-500"} mb-2`}
-                        style={{ minWidth: '130px', minHeight: '130px' }}
+                        style={{ width: 'fit-content' }}
                         whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(59, 130, 246, 0.6)" }}
                         transition={{ type: "spring", stiffness: 300 }}
                     >
                         <img
                             src="/profile.jpeg"
                             alt="Profile"
-                            className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-cover"
+                            className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 object-cover"
                         />
                     </motion.div>
                     
@@ -91,9 +89,8 @@ export default function Home({ pageLoaded }) {
                                 transition={{ delay: 0.5, duration: 0.5 }}
                             >
                                 "It's not what we do impress others, but how we present!"
-                            </motion.p>
-                            <motion.div 
-                                className="flex sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 pt-2 w-full sm:w-auto"
+                            </motion.p>                            <motion.div 
+                                className="flex flex-col sm:flex-row flex-wrap gap-3 pt-2 w-full"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 style={{overflow: "visible"}}
@@ -101,7 +98,7 @@ export default function Home({ pageLoaded }) {
                             >
                                 <motion.button 
                                     onClick={() => navigate('/project')} 
-                                    className="bg-gradient-to-r from-blue-600 to-blue-500 px-4 sm:px-5 py-2 sm:py-2.5 rounded-md hover:from-blue-500 hover:to-blue-400 transition-all duration-300 shadow-lg transform hover:-translate-y-1 flex items-center justify-center sm:justify-start space-x-2 font-medium w-full sm:w-auto"
+                                    className="bg-gradient-to-r from-blue-600 to-blue-500 px-4 sm:px-3 py-2 sm:py-2.5 rounded-md hover:from-blue-500 hover:to-blue-400 transition-all duration-300 shadow-lg transform hover:-translate-y-1 flex items-center justify-center space-x-2 font-medium w-full flex-shrink-0 sm:w-auto"
                                     whileHover={{ scale: 1.03 }}
                                     whileTap={{ scale: 0.98 }}
                                 >
@@ -113,7 +110,7 @@ export default function Home({ pageLoaded }) {
                                 
                                 <motion.button 
                                     onClick={handleDownload} 
-                                    className="bg-gradient-to-r from-gray-700 to-gray-600 px-4 sm:px-5 py-2 sm:py-2.5 rounded-md hover:from-gray-600 hover:to-gray-500 transition-all duration-300 shadow-lg transform hover:-translate-y-1 flex items-center justify-center sm:justify-start space-x-2 font-medium w-full sm:w-auto"
+                                    className="bg-gradient-to-r from-gray-700 to-gray-600 px-4 sm:px-3 py-2 sm:py-2.5 rounded-md hover:from-gray-600 hover:to-gray-500 transition-all duration-300 shadow-lg transform hover:-translate-y-1 flex items-center justify-center space-x-2 font-medium w-full sm:w-auto flex-shrink-0"
                                     style={{overflow: "visible"}}
                                     whileHover={{ scale: 1.03 }}
                                     whileTap={{ scale: 0.98 }}
@@ -193,11 +190,11 @@ export default function Home({ pageLoaded }) {
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         transition={{ delay: 0.4, duration: 0.2 }}
-                                    >
-                                        <div className={`line flex pl-6`}>
+                                    >                                        <div className={`line flex flex-wrap pl-6`}>
                                             <span className={darkMode ? "text-[#9cdcfe]" : "text-blue-500"}>role: </span> 
-                                            <span className={darkMode ? "text-[#dcdcaa]" : "text-yellow-600"}>
-                                                (</span><span className={darkMode ? "text-[#4ec9b0]" : "text-green-600"}>FrontendDeveloper</span><span className={darkMode ? "text-[#dcdcaa]" : "text-yellow-600"}>) =&gt; (</span><span className={darkMode ? "text-[#4ec9b0]" : "text-green-600"}>FullStackDeveloper</span><span className={darkMode ? "text-[#dcdcaa]" : "text-yellow-600"}>)</span>,
+                                            <span className={`${darkMode ? "text-[#dcdcaa]" : "text-yellow-600"} break-words`}>
+                                                (</span><span className={`${darkMode ? "text-[#4ec9b0]" : "text-green-600"} break-words`}>FrontendDeveloper</span><span className={darkMode ? "text-[#dcdcaa]" : "text-yellow-600"}>) =&gt; </span>
+                                            <span className={`${darkMode ? "text-[#4ec9b0]" : "text-green-600"} break-words`}>(FullStackDeveloper</span><span className={darkMode ? "text-[#dcdcaa]" : "text-yellow-600"}>)</span>,
                                         </div>
                                     </motion.div>
                                     
