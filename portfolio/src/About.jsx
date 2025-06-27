@@ -157,8 +157,11 @@ const About = ({ pageLoaded }) => {
     { name: "GitHub", icon: <i className="fab fa-github"></i>, url: "https://github.com/TheCodrrr" },
     { name: "LinkedIn", icon: <i className="fab fa-linkedin"></i>, url: "https://www.linkedin.com/in/aryan-hansoti/" },
     { name: "Email", icon: <i className="fas fa-envelope"></i>, url: "mailto:aryanhansoti36@gmail.com" },
-    { name: "Instagram", icon: <i className="fab fa-instagram"></i>, url: "https://www.instagram.com/yours.r.yan/" },
-    { name: "Leetcode", icon: <i className="fas fa-keyboard"></i>, url: "https://leetcode.com/u/The_Codrr/" },
+    { name: "Instagram", icon: <i className="fab fa-instagram"></i>, url: "https://www.instagram.com/_ar.yan13/" },
+    { name: "Leetcode", icon: <i className="fas fa-keyboard"></i>, url: "https://leetcode.com/u/_loneWolf1/" },
+    { name: "Codeforces", icon: <i className="fas fa-keyboard"></i>, url: "https://codeforces.com/profile/_ar.yan1" },
+    { name: "Codolio", icon: <i className="fas fa-keyboard"></i>, url: "https://codolio.com/profile/_lone.wolf" },
+    { name: "Codechef", icon: <i className="fas fa-keyboard"></i>, url: "https://www.codechef.com/users/lone_wolf_13" },
   ];
   
   useEffect(() => {
@@ -683,7 +686,7 @@ const About = ({ pageLoaded }) => {
               <h2 className={`text-xl font-semibold mb-4 border-b pb-2 ${
                 darkMode ? "border-gray-700 text-orange-400" : "border-gray-200 text-blue-600"
               }`}>
-                <span className={darkMode ? "text-white" : "text-green-600"}>const</span> SocialLinks
+                <span className={darkMode ? "text-white" : "text-green-600"}>const</span> Links
               </h2>
               <div className="flex flex-wrap gap-4">
                 {copiedLink !== null && (
@@ -691,8 +694,7 @@ const About = ({ pageLoaded }) => {
                     <Check size={18} />
                     <span>Link copied to clipboard!</span>
                   </div>
-                )}
-                {socialLinks.map((link, index) => (
+                )}                {socialLinks.slice(0, 4).map((link, index) => (
                   <div
                     key={index}
                     className={`flex items-center justify-between gap-3 px-4 py-2 rounded-lg transition-colors cursor-pointer ${
@@ -710,7 +712,7 @@ const About = ({ pageLoaded }) => {
                     </div>
                     <button
                       onClick={(e) => {
-                        e.stopPropagation(); // prevent the parent div click
+                        e.stopPropagation();
                         navigator.clipboard.writeText(link.url);
                         setCopiedLink(link.name);
                       }}
@@ -729,6 +731,68 @@ const About = ({ pageLoaded }) => {
                     </button>
                   </div>
                 ))}
+              </div>              {/* Coding Platforms Section */}
+              <div className="mt-6">
+                <h3 className={`text-xl font-semibold mb-4 border-b pb-2 ${
+                  darkMode ? "border-gray-700 text-orange-400" : "border-gray-200 text-blue-600"
+                }`}>
+                  <span className={darkMode ? "text-white" : "text-green-600"}>const</span> CodingPlatforms
+                </h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {socialLinks.slice(4).map((link, index) => (
+                    <div
+                      key={index + 4}
+                      className={`flex items-center justify-between p-3 rounded-lg border transition-all duration-200 cursor-pointer hover:shadow-md ${
+                        darkMode
+                          ? "bg-gray-800 border-gray-700 hover:border-purple-500 hover:bg-gray-750"
+                          : "bg-white border-gray-200 hover:border-purple-400 hover:bg-purple-50"
+                      }`}
+                      onClick={() => window.open(link.url, "_blank")}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`p-2 rounded-lg ${
+                          darkMode
+                            ? "bg-purple-900/30 text-purple-400"
+                            : "bg-purple-100 text-purple-600"
+                        }`}>
+                          {link.icon}
+                        </div>
+                        <div>
+                          <span className={`font-medium text-sm ${
+                            darkMode ? "text-white" : "text-gray-800"
+                          }`}>
+                            {link.name}
+                          </span>
+                          <div className={`text-xs ${
+                            darkMode ? "text-gray-400" : "text-gray-500"
+                          }`}>
+                            Competitive Programming
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigator.clipboard.writeText(link.url);
+                          setCopiedLink(link.name);
+                        }}
+                        className={`flex items-center justify-center w-8 h-8 rounded-lg transition-colors ${
+                          darkMode
+                            ? "hover:bg-purple-800/50 text-gray-400 hover:text-purple-300"
+                            : "hover:bg-purple-100 text-gray-500 hover:text-purple-600"
+                        }`}
+                        title="Copy link"
+                      >
+                        {copiedLink === link.name ? (
+                          <Check size={14} className="text-green-500" />
+                        ) : (
+                          <Copy size={14} />
+                        )}
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             </section>
           </div>

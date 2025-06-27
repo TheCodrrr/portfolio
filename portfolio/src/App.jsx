@@ -7,6 +7,10 @@ import { BrowserRouter } from 'react-router-dom';
 import useWindowWidth from './hooks/windowWidthHook';
 
 function App() {
+  // anywhere in your React/Vite app
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
+console.log("This app is running at:", BASE_URL);
+
   const width = useWindowWidth();
 
   return (
