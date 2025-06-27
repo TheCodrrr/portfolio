@@ -10,7 +10,15 @@ export default function Home({ pageLoaded }) {
     const navigate = useNavigate();
     const [typingComplete, setTypingComplete] = useState(false);
     const [cursor, setCursor] = useState(true);
-    
+
+    const skills = [
+        ["HTML", "CSS", "SCSS", "JavaScript", "React.js"],
+        ["MongoDB", "Python", "C++", "SQL", "TailwindCSS"],
+        ["Bootstrap", "Git"]
+    ];
+
+    const learningItems = ["Node.js", "ExpressJS", "React Native"];
+
     // Blinking cursor effect
     useEffect(() => {
         const cursorInterval = setInterval(() => {
@@ -124,7 +132,7 @@ export default function Home({ pageLoaded }) {
                 {/* Right: Code Editor Panel */}
                 <motion.div 
                     className={`relative w-full md:w-1/2 rounded-lg shadow-2xl border ${darkMode ? "bg-[#1e1e1e] border-gray-700" : "bg-[#f7f8fa] border-gray-300"}`}
-                    style={{ height: "auto", minHeight: "300px", maxHeight: "420px" }}
+                    style={{ height: "auto", minHeight: width < 640 ? "380px" : "280px", maxHeight: width < 640 ? "420px" : "420px" }}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6 }}
@@ -147,7 +155,7 @@ export default function Home({ pageLoaded }) {
                     </div>
 
                     {/* Code Block with Line Numbers */}
-                    <div className="flex overflow-auto max-h-[280px] sm:max-h-[320px] md:max-h-[380px] p-2 sm:p-4 font-mono text-xs sm:text-sm">
+                    <div className="flex overflow-auto max-h-[320px] sm:max-h-[360px] md:max-h-[420px] p-2 sm:p-4 font-mono text-xs sm:text-sm">
                         {/* Line Numbers */}
                         <div className={`select-none pr-2 sm:pr-4 text-right ${darkMode ? "text-gray-500" : "text-gray-400"}`}>
                             {Array.from({ length: 13 }).map((_, i) => (
@@ -156,7 +164,7 @@ export default function Home({ pageLoaded }) {
                         </div>
 
                         {/* Code Content */}
-                        <pre className={`whitespace-pre leading-relaxed w-full overflow-x-auto ${darkMode ? "text-gray-200" : "text-gray-800"}`}>
+                        <pre className={`whitespace-pre leading-relaxed w-full overflow-x-auto text-[11px] sm:text-sm ${darkMode ? "text-gray-200" : "text-gray-800"}`}>
                             <AnimatePresence>
                                 <motion.div
                                     initial={{ opacity: 0 }}
@@ -204,44 +212,23 @@ export default function Home({ pageLoaded }) {
                                         </div>
                                     </motion.div>
                                     
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: typingComplete ? 1 : 0 }}
-                                        transition={{ delay: 0.8, duration: 0.3 }}
-                                    >
-                                        <div className={`line flex pl-12`}>
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}>"HTML"</span>, 
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "CSS"</span>, 
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "SCSS"</span>, 
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "JavaScript"</span>, 
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "React.js"</span>,
-                                        </div>
-                                    </motion.div>
-                                    
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: typingComplete ? 1 : 0 }}
-                                        transition={{ delay: 1.0, duration: 0.3 }}
-                                    >
-                                        <div className={`line flex pl-12`}>
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "MongoDB"</span>,
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "Python"</span>, 
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "C++"</span>, 
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "SQL"</span>, 
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "TailwindCSS"</span>,
-                                        </div>
-                                    </motion.div>
-                                    
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: typingComplete ? 1 : 0 }}
-                                        transition={{ delay: 1.2, duration: 0.3 }}
-                                    >
-                                        <div className={`line flex pl-12`}>
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}>"Bootstrap"</span>,
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "Git"</span>
-                                        </div>
-                                    </motion.div>
+                                    {skills.map((skillGroup, groupIndex) => (
+                                        <motion.div
+                                            key={groupIndex}
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: typingComplete ? 1 : 0 }}
+                                            transition={{ delay: 0.8 + (groupIndex * 0.2), duration: 0.3 }}
+                                        >
+                                            <div className={`line flex pl-12 flex-wrap`}>
+                                                {skillGroup.map((skill, index) => (
+                                                    <span key={index}>
+                                                        <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}>"{skill}"</span>
+                                                        {(index < skillGroup.length - 1 || groupIndex < skills.length - 1) && <span>,{" "}</span>}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </motion.div>
+                                    ))}
                                     
                                     <motion.div
                                         initial={{ opacity: 0 }}
@@ -269,20 +256,13 @@ export default function Home({ pageLoaded }) {
                                         animate={{ opacity: typingComplete ? 1 : 0 }}
                                         transition={{ delay: 1.7, duration: 0.3 }}
                                     >
-                                        <div className={`line flex pl-12`}>
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}>"Node.js"</span>, 
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "ExpressJS"</span>, 
-                                            <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}> "React Native"</span>
-                                        </div>
-                                    </motion.div>
-                                    
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: typingComplete ? 1 : 0 }}
-                                        transition={{ delay: 1.8, duration: 0.3 }}
-                                    >
-                                        <div className={`line flex pl-6`}>
-                                            <span className={darkMode ? "text-[#d4d4d4]" : "text-gray-800"}>]</span>,
+                                        <div className={`line flex pl-12 flex-wrap`}>
+                                            {learningItems.map((item, index) => (
+                                                <span key={index}>
+                                                    <span className={darkMode ? "text-[#ce9178]" : "text-orange-500"}>"{item}"</span>
+                                                    {index < learningItems.length - 1 && <span>,{" "}</span>}
+                                                </span>
+                                            ))}
                                         </div>
                                     </motion.div>
                                     
