@@ -70,14 +70,15 @@ const upcomingProjects = [
     codeIcon: "fa-brands fa-react",
     iconColor: "text-purple-600",
     image: "../public/project-placeholder.png",
-    technologies: ["Next.js", "TypeScript", "MongoDB", "Stripe"],
-    description: "A full-stack e-commerce platform with advanced features like real-time inventory management, payment processing, and AI-powered product recommendations.",
+    technologies: ["ReactJS", "Node.js", "MongoDB", "Express.js"],
+    description: "A service based website which will primarily serve the purpose of guiding users through various government services, necessary steps to be taken in case of accidents, emergencies or incidents.",
+    githubUrl: "https://github.com/TheCodrrr/lodge",
     features: [
-      "Advanced product filtering and search",
-      "Real-time inventory tracking",
-      "Secure payment gateway integration",
-      "AI-powered recommendation engine",
-      "Admin dashboard for order management"
+      "Guided navigation for government services",
+      "Emergency response protocols",
+      "Incident reporting tools",
+      "Legal actions resource library for users",
+      "Multilingual support"
     ],
     status: "upcoming",
     expectedCompletion: "Q2 2024"
@@ -93,13 +94,15 @@ export default function Project({ pageLoaded }) {
   const [videoBtnIcon, setVideoBtnIcon] = useState("fas fa-play-circle text-lg");
   const [copySuccess, setCopySuccess] = useState("");
   const [copyTimeout, setCopyTimeout] = useState(null);
-
   const openProject = (project) => {
     if (!openTabs.some((tab) => tab.name === project.name)) {
       setOpenTabs([...openTabs, project]);
     }
     setActiveTab(project);
     setExecuting(false);
+    // Reset demo button state when switching projects
+    setVideoBtnText("View Demo");
+    setVideoBtnIcon("fas fa-play-circle text-lg");
   };
 
   const closeTab = (project) => {
@@ -172,10 +175,14 @@ export default function Project({ pageLoaded }) {
                 Welcome - Select a project
               </span>
             ) : (
-              openTabs.map((tab) => (
-                <motion.div
+              openTabs.map((tab) => (                <motion.div
                   key={tab.name}
-                  onClick={() => setActiveTab(tab)}
+                  onClick={() => {
+                    setActiveTab(tab);
+                    setExecuting(false);
+                    setVideoBtnText("View Demo");
+                    setVideoBtnIcon("fas fa-play-circle text-lg");
+                  }}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-t-md cursor-pointer ${
                     activeTab?.name === tab.name
                       ? darkMode
@@ -279,11 +286,9 @@ export default function Project({ pageLoaded }) {
                           </motion.span>
                         ))}
                       </div>
-                    </div>
-
-                    {/* View Demo Button and GitHub Button */}
+                    </div>                    {/* View Demo Button and GitHub Button */}
                     <div className="flex flex-wrap gap-3 sm:gap-4 mt-auto justify-start">
-                      {!activeTab.hideDemo && (
+                      {!activeTab.hideDemo && activeTab.status === "completed" && (
                         <motion.button
                           onClick={handleVideoExecution}
                           className={`px-5 py-2 rounded-md text-gray-200 flex items-center justify-center md:max-w-[180px] ${
@@ -340,18 +345,6 @@ export default function Project({ pageLoaded }) {
                           <i className="fab fa-github text-lg"></i>
                           <span className="font-medium ml-2">GitHub</span>
                         </motion.a>
-                      )}
-
-                      {/* Expected Completion for Upcoming Projects */}
-                      {activeTab.status === "upcoming" && activeTab.expectedCompletion && (
-                        <div className={`px-4 py-2 rounded-md flex items-center ${
-                          darkMode
-                            ? "bg-amber-900/30 text-amber-300 border border-amber-700"
-                            : "bg-amber-100 text-amber-700 border border-amber-300"
-                        }`}>
-                          <i className="fas fa-clock mr-2"></i>
-                          <span className="text-sm">Expected: {activeTab.expectedCompletion}</span>
-                        </div>
                       )}
                     </div>
                   </div>
@@ -457,10 +450,9 @@ export default function Project({ pageLoaded }) {
               </motion.div>
             )}
           </div>
-        </div>
-          {/* Right Sidebar (Projects) - Always on right for desktop, bottom for mobile */}
+        </div>        {/* Right Sidebar (Projects) - Always on right for desktop, bottom for mobile */}
         <div
-          className={`hidden md:block md:w-1/4 md:pl-15 border-l border-gray-700 p-3 text-sm ${
+          className={`hidden md:block md:w-1/4 border-l border-gray-700 p-3 text-sm ${
             darkMode ? "bg-gray-800" : "bg-gray-100"
           }`}
         >
