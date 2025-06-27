@@ -5,27 +5,9 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
-    name: "Vaccine Management",
-    codeIcon: "fa-brands fa-python",
-    file: "vaccine_management.py",
-    image: "../public/project4.png",
-    iconColor: "text-yellow-400",
-    technologies: ["Python", "Tkinter", "SQL"],
-    description: "A comprehensive vaccination management system that allows users to register for vaccines, schedule appointments, track vaccination status, and generate certificates upon completion.",
-    video: "/videos/project.mp4",
-    hideDemo: true, // Flag to hide the demo button
-    githubUrl: "https://github.com/TheCodrrr/vaccine-management",
-    features: [
-      "User registration for multiple vaccine types",
-      "Automated vaccination date assignment",
-      "Post-vaccination status tracking",
-      "Digital certificate generation for vaccinated users",
-    ],
-  },
-  {
     name: "Tic Tac Toe",
     codeIcon: "fa-brands fa-angular",
-    file: "tic_tac_toe.ts",
+    file: "tic_tac_toe.game.ts",
     image: "../public/project1.png",
     iconColor: "text-red-600",
     technologies: ["Angular.JS", "Typescript", "HTML", "CSS"],
@@ -38,10 +20,11 @@ const projects = [
       "AI logic adapts moves based on game state.",
       "Clean and responsive user interface.",
     ],
+    status: "completed"
   },
   {
     name: "Spotify Clone",
-    file: "spotify.jsx",
+    file: "spotify.clone.jsx",
     codeIcon: "fa-brands fa-react",
     iconColor: "text-blue-700",
     image: "../public/project2.png",
@@ -56,10 +39,11 @@ const projects = [
       "Artist and album browsing",
       "Personalized recommendations",
     ],
+    status: "completed"
   },
   {
     name: "Crop Finance Pro",
-    file: "farmer_app.py",
+    file: "farmer_app.service.py",
     codeIcon: "fa-brands fa-python",
     iconColor: "text-green-500",
     image: "../public/project3.png",
@@ -75,7 +59,29 @@ const projects = [
       "Email notifications on loan status",
     ],
     collaborative: true,
-  },
+    status: "completed"
+  }
+];
+
+const upcomingProjects = [
+  {
+    name: "Lodge",
+    file: "lodge.service.jsx",
+    codeIcon: "fa-brands fa-react",
+    iconColor: "text-purple-600",
+    image: "../public/project-placeholder.png",
+    technologies: ["Next.js", "TypeScript", "MongoDB", "Stripe"],
+    description: "A full-stack e-commerce platform with advanced features like real-time inventory management, payment processing, and AI-powered product recommendations.",
+    features: [
+      "Advanced product filtering and search",
+      "Real-time inventory tracking",
+      "Secure payment gateway integration",
+      "AI-powered recommendation engine",
+      "Admin dashboard for order management"
+    ],
+    status: "upcoming",
+    expectedCompletion: "Q2 2024"
+  }
 ];
 
 export default function Project({ pageLoaded }) {
@@ -314,8 +320,7 @@ export default function Project({ pageLoaded }) {
                           <span className="font-medium ml-2">{videoBtnText}</span>
                         </motion.button>
                       )}
-                      
-                      {/* GitHub Button */}
+                        {/* GitHub Button */}
                       {activeTab.githubUrl && (
                         <motion.a
                           href={activeTab.githubUrl}
@@ -335,6 +340,18 @@ export default function Project({ pageLoaded }) {
                           <i className="fab fa-github text-lg"></i>
                           <span className="font-medium ml-2">GitHub</span>
                         </motion.a>
+                      )}
+
+                      {/* Expected Completion for Upcoming Projects */}
+                      {activeTab.status === "upcoming" && activeTab.expectedCompletion && (
+                        <div className={`px-4 py-2 rounded-md flex items-center ${
+                          darkMode
+                            ? "bg-amber-900/30 text-amber-300 border border-amber-700"
+                            : "bg-amber-100 text-amber-700 border border-amber-300"
+                        }`}>
+                          <i className="fas fa-clock mr-2"></i>
+                          <span className="text-sm">Expected: {activeTab.expectedCompletion}</span>
+                        </div>
                       )}
                     </div>
                   </div>
@@ -441,8 +458,7 @@ export default function Project({ pageLoaded }) {
             )}
           </div>
         </div>
-        
-        {/* Right Sidebar (Projects) - Always on right for desktop, bottom for mobile */}
+          {/* Right Sidebar (Projects) - Always on right for desktop, bottom for mobile */}
         <div
           className={`hidden md:block md:w-1/4 md:pl-15 border-l border-gray-700 p-3 text-sm ${
             darkMode ? "bg-gray-800" : "bg-gray-100"
@@ -455,7 +471,15 @@ export default function Project({ pageLoaded }) {
           >
             <i className="fas fa-folder-open mr-2"></i> Projects
           </h2>
-          <div className="space-y-2">
+          
+          {/* Completed Projects Section */}
+          <div className="space-y-2 mb-6">
+            <h3 className={`text-sm font-semibold mb-2 flex items-center ${
+              darkMode ? "text-green-400" : "text-green-600"
+            }`}>
+              <i className="fas fa-check-circle mr-2"></i>
+              Completed
+            </h3>
             {projects.map((project, index) => (
               <motion.div
                 key={index}
@@ -481,9 +505,42 @@ export default function Project({ pageLoaded }) {
               </motion.div>
             ))}
           </div>
+
+          {/* Upcoming Projects Section */}
+          <div className="space-y-2">
+            <h3 className={`text-sm font-semibold mb-2 flex items-center ${
+              darkMode ? "text-amber-400" : "text-amber-600"
+            }`}>
+              <i className="fas fa-clock mr-2"></i>
+              Upcoming
+            </h3>
+            {upcomingProjects.map((project, index) => (
+              <motion.div
+                key={index}
+                onClick={() => openProject(project)}
+                className={`flex items-center space-x-2 p-2 sm:p-3 rounded-md cursor-pointer transition-all 
+                  ${
+                  activeTab?.name === project.name
+                    ? darkMode
+                      ? "bg-gray-700 text-yellow-400 shadow-md"
+                      : "bg-gray-300 text-blue-600 shadow-md"
+                    : darkMode
+                    ? "text-gray-300 hover:bg-gray-700"
+                    : "text-gray-800 hover:bg-gray-300"
+                }`}
+                whileHover={{ x: 5 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <i className={`${project.codeIcon} ${project.iconColor}`}></i>
+                <span className="text-xs sm:text-sm truncate">{project.name}</span>
+                {project.collaborative && (
+                  <i className="fas fa-users ml-1 text-xs text-blue-400" title="Collaborative Project"></i>
+                )}
+              </motion.div>
+            ))}
+          </div>
         </div>
-        
-        {/* Mobile Projects Bar (shown at bottom on small screens only when scrolled to bottom) */}
+          {/* Mobile Projects Bar (shown at bottom on small screens only when scrolled to bottom) */}
           <div
             className={`md:hidden w-full border-t border-gray-700 p-3 z-[9999] text-sm fixed bottom-0 left-0 
               transition-all duration-300 ease-in-out
@@ -497,31 +554,77 @@ export default function Project({ pageLoaded }) {
             >
               <i className="fas fa-folder-open mr-2"></i> Projects
             </h2>
-            <div className="flex flex-wrap gap-2 justify-center overflow-x-auto pb-safe">
-              {projects.map((project, index) => (
-                <motion.div
-                  key={index}
-                  onClick={() => openProject(project)}
-                  className={`flex items-center space-x-1 p-1.5 rounded-md cursor-pointer transition-all 
-                    max-w-[45%] flex-grow
-                    ${
-                    activeTab?.name === project.name
-                      ? darkMode
-                        ? "bg-gray-700 text-yellow-400 shadow-md"
-                        : "bg-gray-300 text-blue-600 shadow-md"
-                      : darkMode
-                      ? "text-gray-300 hover:bg-gray-700"
-                      : "text-gray-800 hover:bg-gray-300"
-                  }`}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <i className={`${project.codeIcon} ${project.iconColor}`}></i>
-                  <span className="text-xs truncate">{project.name}</span>
-                  {project.collaborative && (
-                    <i className="fas fa-users ml-1 text-xs text-blue-400" title="Collaborative Project"></i>
-                  )}
-                </motion.div>
-              ))}
+            
+            {/* Completed Projects */}
+            <div className="mb-3">
+              <h3 className={`text-xs font-semibold mb-2 text-center ${
+                darkMode ? "text-green-400" : "text-green-600"
+              }`}>
+                <i className="fas fa-check-circle mr-1"></i>
+                Completed
+              </h3>
+              <div className="flex flex-wrap gap-2 justify-center overflow-x-auto">
+                {projects.map((project, index) => (
+                  <motion.div
+                    key={index}
+                    onClick={() => openProject(project)}
+                    className={`flex items-center space-x-1 p-1.5 rounded-md cursor-pointer transition-all 
+                      max-w-[30%] flex-grow
+                      ${
+                      activeTab?.name === project.name
+                        ? darkMode
+                          ? "bg-gray-700 text-yellow-400 shadow-md"
+                          : "bg-gray-300 text-blue-600 shadow-md"
+                        : darkMode
+                        ? "text-gray-300 hover:bg-gray-700"
+                        : "text-gray-800 hover:bg-gray-300"
+                    }`}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <i className={`${project.codeIcon} ${project.iconColor}`}></i>
+                    <span className="text-xs truncate">{project.name}</span>
+                    {project.collaborative && (
+                      <i className="fas fa-users ml-1 text-xs text-blue-400" title="Collaborative Project"></i>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Upcoming Projects */}
+            <div>
+              <h3 className={`text-xs font-semibold mb-2 text-center ${
+                darkMode ? "text-amber-400" : "text-amber-600"
+              }`}>
+                <i className="fas fa-clock mr-1"></i>
+                Upcoming
+              </h3>
+              <div className="flex flex-wrap gap-2 justify-center overflow-x-auto pb-safe">
+                {upcomingProjects.map((project, index) => (
+                  <motion.div
+                    key={index}
+                    onClick={() => openProject(project)}
+                    className={`flex items-center space-x-1 p-1.5 rounded-md cursor-pointer transition-all 
+                      max-w-[45%] flex-grow
+                      ${
+                      activeTab?.name === project.name
+                        ? darkMode
+                          ? "bg-gray-700 text-yellow-400 shadow-md"
+                          : "bg-gray-300 text-blue-600 shadow-md"
+                        : darkMode
+                        ? "text-gray-300 hover:bg-gray-700"
+                        : "text-gray-800 hover:bg-gray-300"
+                    }`}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <i className={`${project.codeIcon} ${project.iconColor}`}></i>
+                    <span className="text-xs truncate">{project.name}</span>
+                    {project.collaborative && (
+                      <i className="fas fa-users ml-1 text-xs text-blue-400" title="Collaborative Project"></i>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
       </div>
