@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useUI } from "./context/UIContext";
 import * as d3 from 'd3';
 import Chart from 'chart.js/auto';
+import useWindowWidth from "./hooks/windowWidthHook";
 
 const About = ({ pageLoaded }) => {
   const { darkMode } = useUI();
@@ -13,6 +14,7 @@ const About = ({ pageLoaded }) => {
   const [copiedLink, setCopiedLink] = useState(null);
   const [expandedSkills, setExpandedSkills] = useState({});
   const [expandedCharts, setExpandedCharts] = useState({});
+  const width = useWindowWidth();
 
   const toggleSkillExpansion = (skillName) => {
     setExpandedSkills(prev => {
@@ -737,8 +739,7 @@ const About = ({ pageLoaded }) => {
                   darkMode ? "border-gray-700 text-orange-400" : "border-gray-200 text-blue-600"
                 }`}>
                   <span className={darkMode ? "text-white" : "text-green-600"}>const</span> CodingPlatforms
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
+                </h3>                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {socialLinks.slice(4).map((link, index) => (
                     <div
                       key={index + 4}
@@ -766,7 +767,7 @@ const About = ({ pageLoaded }) => {
                           <div className={`text-xs ${
                             darkMode ? "text-gray-400" : "text-gray-500"
                           }`}>
-                            Competitive Programming
+                            { width > 770 ? "Competitive Programming" : "CP" }
                           </div>
                         </div>
                       </div>
