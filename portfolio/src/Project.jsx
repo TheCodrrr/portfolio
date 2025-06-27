@@ -12,7 +12,6 @@ const projects = [
     iconColor: "text-red-600",
     technologies: ["Angular.JS", "Typescript", "HTML", "CSS"],
     description: "A single-player Tic Tac Toe game with two difficulty levels—Easy and Hard—powered by hardcoded logic to simulate an intelligent opponent.",
-    video: "../public/project2.mp4",
     githubUrl: "https://github.com/TheCodrrr/tic-tac-toe",
     features: [
       "Play against an AI in single-player mode.",
@@ -32,7 +31,6 @@ const projects = [
     technologies: ["ReactJS", "HTML", "CSS"],
     description:
       "A music streaming web app that replicates core Spotify features, allowing users to explore and play songs from curated playlists with real-time data integration.",
-    video: "../public/project3.mp4",
     githubUrl: "https://github.com/TheCodrrr/spotify-clone",
     features: [
       "Music player with playback controls",
@@ -52,7 +50,6 @@ const projects = [
     technologies: ["Flask", "Spring Boot", "ReactJS", "ML Models"],
     description:
       "A web platform that bridges the gap between farmers and banks by enabling loan approvals based on AI-generated credit scores using agricultural and financial data.",
-    video: "../public/project4.mp4",
     githubUrl: "https://github.com/TheCodrrr/Farmer-Helping-Team",
     features: [
       "AI-based credit score generation",
@@ -72,7 +69,7 @@ const upcomingProjects = [
     file: "lodge.service.jsx",
     codeIcon: "fa-brands fa-react",
     iconColor: "text-purple-600",
-    image: "/project-placeholder.png",
+    image: "/project4.png",
     technologies: ["ReactJS", "Node.js", "MongoDB", "Express.js"],
     description: "A service based website which will primarily serve the purpose of guiding users through various government services, necessary steps to be taken in case of accidents, emergencies or incidents.",
     githubUrl: "https://github.com/TheCodrrr/lodge",
