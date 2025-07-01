@@ -194,7 +194,7 @@ export default function Home({ pageLoaded }) {
                                             <span className={darkMode ? "text-[#9cdcfe]" : "text-blue-500"}>role: </span> 
                                             <span className={`${darkMode ? "text-[#dcdcaa]" : "text-yellow-600"} break-words`}>
                                                 (</span><span className={`${darkMode ? "text-[#4ec9b0]" : "text-green-600"} break-words`}>FrontendDeveloper</span><span className={darkMode ? "text-[#dcdcaa]" : "text-yellow-600"}>) =&gt; </span>
-                                            <span className={`${darkMode ? "text-[#4ec9b0]" : "text-green-600"} break-words`}>(FullStackDeveloper</span><span className={darkMode ? "text-[#dcdcaa]" : "text-yellow-600"}>)</span>,
+                                            <span className={`${darkMode ? "text-[#4ec9b0]" : "text-green-600"} break-words`}><span className={darkMode ? "text-[#dcdcaa]" : "text-yellow-600"}>(</span>FullStackDeveloper</span><span className={darkMode ? "text-[#dcdcaa]" : "text-yellow-600"}>)</span>,
                                         </div>
                                     </motion.div>
                                     
@@ -262,11 +262,20 @@ export default function Home({ pageLoaded }) {
                                             ))}
                                         </div>
                                     </motion.div>
-                                    
                                     <motion.div
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: typingComplete ? 1 : 0 }}
                                         transition={{ delay: 1.9, duration: 0.3 }}
+                                    >
+                                        <div className={`line flex pl-6`}>
+                                            <span className={darkMode ? "text-[#d4d4d4]" : "text-gray-800"}>]</span>,
+                                        </div>
+                                    </motion.div>
+                                    
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: typingComplete ? 1 : 0 }}
+                                        transition={{ delay: 2.1, duration: 0.3 }}
                                     >
                                         <div className="line flex">
                                             <span className={darkMode ? "text-[#d4d4d4]" : "text-gray-800"}>{'};'}</span>
