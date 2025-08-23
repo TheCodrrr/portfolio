@@ -65,14 +65,14 @@ const projects = [
 
 const upcomingProjects = [
   {
-    name: "Lodge",
-    file: "lodge.service.jsx",
+    name: "Rescue",
+    file: "rescue.service.jsx",
     codeIcon: "fa-brands fa-react",
     iconColor: "text-purple-600",
     image: "/project4.png",
-    technologies: ["ReactJS", "Node.js", "MongoDB", "Express.js"],
+    technologies: ["ReactJS", "Node.js", "MongoDB", "Express.js", "PostgreSQL"],
     description: "A service based website which will primarily serve the purpose of guiding users through various government services, necessary steps to be taken in case of accidents, emergencies or incidents.",
-    githubUrl: "https://github.com/TheCodrrr/lodge",
+    githubUrl: "https://github.com/TheCodrrr/rescue",
     features: [
       "Guided navigation for government services",
       "Emergency response protocols",
