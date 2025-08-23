@@ -13,11 +13,11 @@ export default function Home({ pageLoaded }) {
 
     const skills = [
         ["HTML", "CSS", "SCSS", "JavaScript", "React.js"],
-        ["MongoDB", "Python", "C++", "SQL", "TailwindCSS"],
-        ["Bootstrap", "Git"]
+        ["MongoDB", "Python", "SQL", "MySQL", "C++"],
+        ["Bootstrap", "TailwindCSS", "Git", "Github"]
     ];
 
-    const learningItems = ["Node.js", "ExpressJS", "React Native"];
+    const learningItems = ["Node.js", "ExpressJS", "PostgreSQL"];
 
     // Blinking cursor effect
     useEffect(() => {
