@@ -44,31 +44,34 @@ const About = ({ pageLoaded }) => {
     });
   };
 
+  // Updated language proficiency data (Languages: JavaScript, C++, Python, SQL)
   const skillsData = [
-    { skill: ".js", level: 90 },
-    { skill: ".cpp", level: 80 },
-    { skill: ".py", level: 80 },
-    { skill: ".c", level: 60 },
-    { skill: ".ts", level: 50 }
+    { skill: "JavaScript", level: 85 },
+    { skill: "C++", level: 75 },
+    { skill: "Python", level: 70 },
+    { skill: "SQL", level: 65 }
   ];
   
-  const frameworkData = {
-    labels: ['React', 'TailwindCSS', 'Bootstrap', 'Angular'],
+  // Core CS Subjects distribution (replaces frameworks pie chart)
+  const coreCSData = {
+    labels: ['DBMS', 'CN', 'OS', 'DSA', 'OOP'],
     datasets: [{
-      data: [40, 20, 20, 20],
-      backgroundColor: darkMode ? 
-        ['#f97316', '#84cc16', '#06b6d4', '#8b5cf6'] : 
-        ['#ea580c', '#65a30d', '#0891b2', '#7c3aed'],
+      data: [65, 60, 55, 70, 75],
+      backgroundColor: darkMode ?
+        ['#f97316', '#84cc16', '#06b6d4', '#8b5cf6', '#eab308'] :
+        ['#ea580c', '#65a30d', '#0891b2', '#7c3aed', '#d97706'],
       borderColor: darkMode ? '#1f2937' : '#f8fafc',
       borderWidth: 2
     }]
   };
   
+  // Category balance radar (Languages, Databases, Dev Tools, Frameworks, Core CS Subjects)
   const skillSetData = {
-    labels: ['Frontend', 'Backend', 'Database'],
+    labels: ['Languages', 'Databases', 'Dev Tools', 'Frameworks', 'Core CS'],
     datasets: [{
-      label: 'Skill Level',
-      data: [80, 50, 50],
+      label: 'Category Level',
+      // Approximate aggregate proficiency values (assumption)
+      data: [75, 62, 75, 70, 65],
       backgroundColor: darkMode ? 'rgba(249, 115, 22, 0.2)' : 'rgba(37, 99, 235, 0.2)',
       borderColor: darkMode ? '#f97316' : '#2563eb',
       borderWidth: 2,
@@ -79,64 +82,53 @@ const About = ({ pageLoaded }) => {
     }]
   };
 
+  // Updated tech skills categories based on provided specification
+  // Assumed proficiency percentages for visualization (can be adjusted later)
   const techSkills = [
-    { 
-      name: "Frontend Development", 
-      icon: <Globe className="w-5 h-5" />, 
-      progress: 70,
+    {
+      name: "Languages",
+      icon: <Code className="w-5 h-5" />,
+      progress: 74, // avg of sub-skills
       expandable: true,
       subSkills: [
-        { name: "HTML/CSS", progress: 85 },
-        { name: "JavaScript", progress: 60 },
-        { name: "React", progress: 65 },
-        { name: "Angular", progress: 40 }
+        { name: "JavaScript", progress: 85 },
+        { name: "C++", progress: 75 },
+        { name: "Python", progress: 70 },
+        { name: "SQL", progress: 65 }
       ]
     },
-    { 
-      name: "Backend Development", 
-      icon: <Server className="w-5 h-5" />, 
-      progress: 50,
+    {
+      name: "Databases",
+      icon: <Database className="w-5 h-5" />,
+      progress: 62,
       expandable: true,
       subSkills: [
-        { name: "Node.js", progress: 40 },
-        { name: "Express", progress: 25 },
-        { name: "REST APIs", progress: 60 },
-        { name: "Authentication", progress: 55 }
+        { name: "MongoDB", progress: 70 },
+        { name: "MySQL", progress: 60 },
+        { name: "PostgreSQL", progress: 55 }
       ]
     },
-    { 
-      name: "Database Management", 
-      icon: <Database className="w-5 h-5" />, 
-      progress: 45,
+    {
+      name: "Core CS Subjects",
+      icon: <Layout className="w-5 h-5" />,
+      progress: 65,
       expandable: true,
       subSkills: [
-        { name: "SQL", progress: 75 },
-        { name: "MongoDB", progress: 60 },
-        { name: "Database Design", progress: 55 }
+        { name: "DBMS", progress: 65 },
+        { name: "CN", progress: 60 },
+        { name: "OS", progress: 55 },
+        { name: "DSA", progress: 70 },
+        { name: "OOP", progress: 75 }
       ]
     },
-    { 
-      name: "Web Development", 
-      icon: <Code className="w-5 h-5" />, 
-      progress: 50,
-      expandable: false
-    },
-    { 
-      name: "DSA", 
-      icon: <GitBranch className="w-5 h-5" />, 
-      progress: 35,
-      expandable: false
-    },
-    { 
-      name: "App Development", 
-      icon: <Layout className="w-5 h-5" />, 
-      progress: 10,
-      expandable: true,
-      subSkills: [
-        { name: "React Native", progress: 10 },
-        { name: "Mobile UI/UX", progress: 5 }
-      ]
-    },
+  ];
+
+  // Separate lists for new dedicated section
+  const devToolsList = [
+    'Visual Studio Code', 'Git', 'GitHub', 'Jupyter Notebook', 'Postman'
+  ];
+  const frameworksLibraries = [
+    'ReactJS', 'TailwindCSS', 'Bootstrap'
   ];
 
   // Function to get progress color based on percentage
@@ -256,11 +248,11 @@ const About = ({ pageLoaded }) => {
     charts.forEach(chart => chart.destroy());
     const newCharts = [];
     
-    if (pieChartRef.current) {
+  if (pieChartRef.current) {
       const ctx = pieChartRef.current.getContext('2d');
       const pieChart = new Chart(ctx, {
         type: 'doughnut',
-        data: frameworkData,
+    data: coreCSData,
         options: {
           responsive: true,
           maintainAspectRatio: false,
@@ -289,7 +281,7 @@ const About = ({ pageLoaded }) => {
             },
             title: {
               display: true,
-              text: 'Framework Experience',
+              text: 'Core CS Subjects',
               color: darkMode ? '#f1f5f9' : '#0f172a',
               padding: {
                 top: 10,
@@ -569,7 +561,7 @@ const About = ({ pageLoaded }) => {
                     <h3 className={`text-base font-medium mb-3 flex items-center gap-2 ${
                       darkMode ? "text-orange-400" : "text-blue-600"
                     }`}>
-                      <PieChart size={18} /> Framework Distribution
+                      <PieChart size={18} /> Core CS Subjects
                     </h3>
                     <div className="h-48 px-2 flex justify-center items-center">
                       <canvas ref={pieChartRef}></canvas>
@@ -583,7 +575,7 @@ const About = ({ pageLoaded }) => {
                     <h3 className={`text-base font-medium mb-3 flex items-center gap-2 ${
                       darkMode ? "text-orange-400" : "text-blue-600"
                     }`}>
-                      <LineChart size={18} /> Skill Balance
+                      <LineChart size={18} /> Skill Category Balance
                     </h3>
                     <div className="h-64 flex justify-center">
                       <canvas ref={radarChartRef}></canvas>
@@ -682,6 +674,36 @@ const About = ({ pageLoaded }) => {
                     )}
                   </div>
                 ))}
+              </div>
+            </section>
+            {/* Dev Tools & Frameworks Section */}
+            <section>
+              <h2 className={`text-xl font-semibold mt-10 mb-4 border-b pb-2 ${
+                darkMode ? "border-gray-700 text-orange-400" : "border-gray-200 text-blue-600"
+              }`}>
+                <span className={darkMode ? "text-white" : "text-green-600"}>const</span> DevTools&Frameworks
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className={`p-5 rounded-lg border ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'}`}>
+                  <h3 className={`text-sm font-semibold mb-3 flex items-center gap-2 ${darkMode ? 'text-orange-400' : 'text-blue-600'}`}>
+                    <Server size={16} /> Dev Tools
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {devToolsList.map(t => (
+                      <span key={t} className={`text-xs px-3 py-1 rounded-full border font-medium ${darkMode ? 'bg-gray-900/50 border-gray-700 text-gray-300' : 'bg-white border-gray-300 text-gray-700'}`}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className={`p-5 rounded-lg border ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'}`}>
+                  <h3 className={`text-sm font-semibold mb-3 flex items-center gap-2 ${darkMode ? 'text-orange-400' : 'text-blue-600'}`}>
+                    <Globe size={16} /> Frameworks & Libraries
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {frameworksLibraries.map(f => (
+                      <span key={f} className={`text-xs px-3 py-1 rounded-full border font-medium ${darkMode ? 'bg-gray-900/50 border-gray-700 text-gray-300' : 'bg-white border-gray-300 text-gray-700'}`}>{f}</span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </section>
             <section>
