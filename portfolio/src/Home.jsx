@@ -16,7 +16,7 @@ export default function Home({ pageLoaded }) {
         ["MongoDB", "Python", "SQL", "MySQL", "C++"],
         ["Bootstrap", "TailwindCSS", "Git", "Github"],
         ["Redux Toolkit", "PostgreSQL", "Redis", "BullMQ"],
-        ["Node.js", "ExpressJS"]
+        ["Node.js", "ExpressJS", "Socket.IO"]
     ];
 
     const learningItems = ["Cloud Computing", "AWS Services"];
