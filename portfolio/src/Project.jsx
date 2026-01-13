@@ -5,22 +5,25 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
-    name: "Tic Tac Toe",
-    codeIcon: "fa-brands fa-angular",
-    file: "tic_tac_toe.game.ts",
+    name: "Rescue",
+    file: "rescue.service.jsx",
+    codeIcon: "fa-brands fa-react",
+    iconColor: "text-purple-600",
     image: "/project1.png",
-    iconColor: "text-red-600",
-    technologies: ["Angular.JS", "Typescript", "HTML", "CSS"],
-    description: "A single-player Tic Tac Toe game with two difficulty levels—Easy and Hard—powered by hardcoded logic to simulate an intelligent opponent.",
-    githubUrl: "https://github.com/TheCodrrr/tic-tac-toe",
+    technologies: ["React", "Node.js", "Express", "MongoDB", "PostgreSQL", "Redis", "Socket.IO", "BullMQ"],
+    description: "A comprehensive, real-time complaint management and incident reporting platform for public safety departments including Police, Fire, Railway, Road, Cyber Crime, and Court services. Features real-time notifications, geospatial queries, automated escalation system, and multi-level officer hierarchy.",
+    githubUrl: "https://github.com/TheCodrrr/rescue",
+    liveUrl: "https://complaintsrescue.tech",
     features: [
-      "Play against an AI in single-player mode.",
-      "Choose between Easy and Hard difficulty.",
-      "AI logic adapts moves based on game state.",
-      "Clean and responsive user interface.",
+      "Real-time notifications & updates via Socket.IO",
+      "Multi-department support (Police,Fire,Railway,Cyber Crime,Court)",
+      "Interactive maps with geolocation & nearby complaints",
+      "Automated escalation system with BullMQ job queues",
+      "Officer dashboard with analytics & case management",
+      "Evidence management with Cloudinary integration"
     ],
     status: "completed",
-    video: "uJYox4wqr9Y",
+    video: "suQYCuIs3KE",
   },
   {
     name: "Spotify Clone",
@@ -63,27 +66,7 @@ const projects = [
   }
 ];
 
-const upcomingProjects = [
-  {
-    name: "Rescue",
-    file: "rescue.service.jsx",
-    codeIcon: "fa-brands fa-react",
-    iconColor: "text-purple-600",
-    image: "/project4.png",
-    technologies: ["ReactJS", "Node.js", "MongoDB", "Express.js", "PostgreSQL"],
-    description: "A service based website which will primarily serve the purpose of guiding users through various government services, necessary steps to be taken in case of accidents, emergencies or incidents.",
-    githubUrl: "https://github.com/TheCodrrr/rescue",
-    features: [
-      "Guided navigation for government services",
-      "Emergency response protocols",
-      "Incident reporting tools",
-      "Legal actions resource library for users",
-      "Multilingual support"
-    ],
-    status: "upcoming",
-    expectedCompletion: "Q2 2024"
-  }
-];
+
 
 export default function Project({ pageLoaded }) {
   const { darkMode } = useUI();
@@ -259,7 +242,7 @@ export default function Project({ pageLoaded }) {
                       className="aspect-square w-full max-w-[200px] md:max-w-[250px] rounded-md object-cover border border-gray-600 shadow-md"
                     />
                   </div>
-                  <div className="flex flex-col flex-1 pl-0 md:pl-5 h-50">
+                  <div className="flex flex-col flex-1 pl-0 md:pl-5 overflow-visible">
                     <h3 className="text-2xl sm:text-3xl font-bold text-yellow-400 flex py-2 sm:py-3 flex-wrap">
                       {activeTab.name}
                       {activeTab.collaborative && (
@@ -271,7 +254,7 @@ export default function Project({ pageLoaded }) {
                     </h3>
 
                     {/* Technology badges */}
-                    <div className="mb-4 sm:mb-6">
+                    <div className="mb-4 sm:mb-6 overflow-visible">
                       <p
                         className={`text-sm flex mb-2 ${
                           darkMode ? "text-gray-300" : "text-gray-800"
@@ -280,7 +263,7 @@ export default function Project({ pageLoaded }) {
                         <i className="fas fa-code-branch mr-2"></i>
                         Technologies:
                       </p>
-                      <div className="flex flex-wrap gap-2 sm:gap-3 min-h-[40px] py-2 z-5 relative">
+                      <div className="flex flex-wrap gap-2 sm:gap-3 py-2 overflow-visible">
                         {activeTab.technologies.map((tech, index) => (
                           <motion.span
                             key={index}
@@ -288,7 +271,7 @@ export default function Project({ pageLoaded }) {
                               darkMode
                                 ? "bg-gray-700 text-gray-200 border border-gray-600"
                                 : "bg-gray-300 text-gray-800 border border-gray-400"
-                            } hover:shadow-lg z-5`}
+                            } hover:shadow-lg`}
                             style={{ minWidth: "fit-content" }}
                             whileHover={{ 
                               scale: 1.1, 
@@ -301,8 +284,32 @@ export default function Project({ pageLoaded }) {
                           </motion.span>
                         ))}
                       </div>
-                    </div>                    {/* View Demo Button and GitHub Button */}
+                    </div>                    
+
+                    
+                    {/* View Demo Button and GitHub Button */}
                     <div className="flex flex-wrap gap-3 sm:gap-4 mt-auto justify-start">
+                      {/* Live Button */}
+                      {activeTab.liveUrl && (
+                        <motion.a
+                          href={activeTab.liveUrl}
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className={`px-5 py-2 rounded-md text-gray-200 flex items-center justify-center shadow-lg md:max-w-[160px] ${
+                            darkMode
+                              ? "bg-gradient-to-r from-green-700 to-emerald-600 hover:from-green-600 hover:to-emerald-500 border border-green-500"
+                              : "bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 border border-green-400"
+                          }`}
+                          whileHover={{ 
+                            scale: 1.05,
+                            boxShadow: "0px 0px 12px rgba(34,197,94,0.5)"
+                          }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <i className="fas fa-external-link-alt text-lg"></i>
+                          <span className="font-medium ml-2">Live</span>
+                        </motion.a>
+                      )}
                       {!activeTab.hideDemo && activeTab.status === "completed" && (
                         <motion.button
                           onClick={handleVideoExecution}
@@ -480,14 +487,8 @@ export default function Project({ pageLoaded }) {
             <i className="fas fa-folder-open mr-2"></i> Projects
           </h2>
           
-          {/* Completed Projects Section */}
-          <div className="space-y-2 mb-6">
-            <h3 className={`text-sm font-semibold mb-2 flex items-center ${
-              darkMode ? "text-green-400" : "text-green-600"
-            }`}>
-              <i className="fas fa-check-circle mr-2"></i>
-              Completed
-            </h3>
+          {/* Projects Section */}
+          <div className="space-y-2">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
@@ -514,39 +515,7 @@ export default function Project({ pageLoaded }) {
             ))}
           </div>
 
-          {/* Upcoming Projects Section */}
-          <div className="space-y-2">
-            <h3 className={`text-sm font-semibold mb-2 flex items-center ${
-              darkMode ? "text-amber-400" : "text-amber-600"
-            }`}>
-              <i className="fas fa-clock mr-2"></i>
-              Upcoming
-            </h3>
-            {upcomingProjects.map((project, index) => (
-              <motion.div
-                key={index}
-                onClick={() => openProject(project)}
-                className={`flex items-center space-x-2 p-2 sm:p-3 rounded-md cursor-pointer transition-all 
-                  ${
-                  activeTab?.name === project.name
-                    ? darkMode
-                      ? "bg-gray-700 text-yellow-400 shadow-md"
-                      : "bg-gray-300 text-blue-600 shadow-md"
-                    : darkMode
-                    ? "text-gray-300 hover:bg-gray-700"
-                    : "text-gray-800 hover:bg-gray-300"
-                }`}
-                whileHover={{ x: 5 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <i className={`${project.codeIcon} ${project.iconColor}`}></i>
-                <span className="text-xs sm:text-sm truncate">{project.name}</span>
-                {project.collaborative && (
-                  <i className="fas fa-users ml-1 text-xs text-blue-400" title="Collaborative Project"></i>
-                )}
-              </motion.div>
-            ))}
-          </div>
+
         </div>
           {/* Mobile Projects Bar (shown at bottom on small screens only when scrolled to bottom) */}
           <div
@@ -583,14 +552,8 @@ export default function Project({ pageLoaded }) {
               }}
               className="overflow-hidden"
             >
-              {/* Completed Projects */}
-              <div className="mb-4">
-                <h3 className={`text-xs font-semibold mb-3 text-center ${
-                  darkMode ? "text-green-400" : "text-green-600"
-                }`}>
-                  <i className="fas fa-check-circle mr-1"></i>
-                  Completed
-                </h3>
+              {/* Projects */}
+              <div className="pb-4">
                 <div className="flex flex-wrap gap-2 justify-center">
                   {projects.map((project, index) => (
                     <motion.div
@@ -624,46 +587,7 @@ export default function Project({ pageLoaded }) {
                 </div>
               </div>
 
-              {/* Upcoming Projects */}
-              <div>
-                <h3 className={`text-xs font-semibold mb-3 text-center ${
-                  darkMode ? "text-amber-400" : "text-amber-600"
-                }`}>
-                  <i className="fas fa-clock mr-1"></i>
-                  Upcoming
-                </h3>
-                <div className="flex flex-wrap gap-2 justify-center pb-4">
-                  {upcomingProjects.map((project, index) => (
-                    <motion.div
-                      key={index}
-                      onClick={() => openProject(project)}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 20 }}
-                      transition={{ duration: 0.2, delay: index * 0.05 }}
-                      className={`flex items-center space-x-1 p-2 rounded-md cursor-pointer transition-all 
-                        w-[45%] max-w-[180px] overflow-hidden
-                        ${
-                        activeTab?.name === project.name
-                          ? darkMode
-                            ? "bg-gray-700 text-yellow-400 shadow-md"
-                            : "bg-gray-300 text-blue-600 shadow-md"
-                          : darkMode
-                          ? "text-gray-300 hover:bg-gray-700"
-                          : "text-gray-800 hover:bg-gray-300"
-                      }`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <i className={`${project.codeIcon} ${project.iconColor} text-sm`}></i>
-                      <span className="text-xs truncate flex-1">{project.file}</span>
-                      {project.collaborative && (
-                        <i className="fas fa-users text-xs text-blue-400" title="Collaborative Project"></i>
-                      )}
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+
             </motion.div>
           </div>
       </div>
